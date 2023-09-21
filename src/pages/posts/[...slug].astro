@@ -1,0 +1,54 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content'
+import DefaultLayout from '~/layouts/DefaultLayout.astro'
+import Header from '~/components/Header.astro'
+import GridBackground from '~/components/GridBackground.astro'
+import RssRegister from '~/components/RssRegister.astro'
+
+interface Props {
+  post: CollectionEntry<'posts'>
+}
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('posts')
+  return blogEntries.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await post.render()
+---
+
+<DefaultLayout>
+  <div class="max-w-3xl mx-auto">
+    <div class="relative">
+      <div class="absolute inset-0 top-10 -z-10">
+        <GridBackground />
+      </div>
+      <div class="p-4">
+        <Header showHomeLink />
+      </div>
+
+      <div class="p-4 mt-20">
+        <div>
+          <time datetime="" class="text-sm text-muted-foreground">
+            {(post.data.publishedOn as Date).toDateString()}
+          </time>
+          <span class="text-sm mx-2 text-muted-foreground/50">&middot;</span>
+          <span class="text-sm text-primary/80">{post.data.category}</span>
+        </div>
+        <h1 class="text-3xl font-medium mt-2" transition:name={`post-title:${post.slug}`}>{post.data.title}</h1>
+      </div>
+    </div>
+
+    <div class="p-4 mt-9 prose lg:prose-sm max-w-full dark:prose-invert">
+      <Content />
+    </div>
+
+    <div class="p-4 pb-10">
+      <RssRegister />
+    </div>
+  </div>
+</DefaultLayout>

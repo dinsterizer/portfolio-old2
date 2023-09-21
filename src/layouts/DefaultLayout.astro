@@ -1,0 +1,40 @@
+---
+import '~/styles/global.css'
+import { SEO } from 'astro-seo'
+import { ViewTransitions } from 'astro:transitions'
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <ViewTransitions />
+    <slot name="head">
+      <SEO
+        title="Dinh | Web Developer - Indie Hacker"
+        description="Hi there, I am a web developer who began learning programming in 2019. Currently, I am working on Laravel, JS Edge runtime, and React. In my free time, I am an indie hacker who is building ResolveX.ai (open-source software)."
+        openGraph={{
+          basic: {
+            title: 'Dinh | Web Developer - Indie Hacker',
+            type: 'website',
+            image: '/og.jpg',
+          },
+        }}
+        twitter={{
+          creator: '@divndev',
+          card: 'summary_large_image',
+        }}
+      />
+    </slot>
+  </head>
+  <body class="dark">
+    <slot />
+  </body>
+</html>

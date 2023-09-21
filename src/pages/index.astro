@@ -1,16 +1,33 @@
 ---
-
+import Header from '~/components/Header.astro'
+import HeroSection from '~/components/HeroSection.astro'
+import PostList from '~/components/PostList.astro'
+import DefaultLayout from '~/layouts/DefaultLayout.astro'
+import GridBackground from '~/components/GridBackground.astro'
+import RssRegister from '~/components/RssRegister.astro'
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<DefaultLayout>
+  <div class="max-w-3xl mx-auto">
+    <div class="relative">
+      <div class="absolute inset-0 top-10 -z-10">
+        <GridBackground />
+      </div>
+      <div class="p-4">
+        <Header />
+      </div>
+
+      <div class="p-4 max-w-xl mt-20">
+        <HeroSection />
+      </div>
+    </div>
+
+    <div class="p-4 mt-9">
+      <PostList />
+    </div>
+
+    <div class="p-4 pb-10">
+      <RssRegister />
+    </div>
+  </div>
+</DefaultLayout>

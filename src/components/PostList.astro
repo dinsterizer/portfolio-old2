@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content'
+const posts = await getCollection('posts')
+---
+
+<div class="space-y-11">
+  {
+    posts.map((post) => (
+      <div class="relative">
+        <div>
+          <time datetime="" class="text-xs text-muted-foreground">
+            {(post.data.publishedOn as Date).toDateString()}
+          </time>
+          <span class="mx-2 text-xs text-muted-foreground/50">&middot;</span>
+          <span class="text-xs text-primary/80">{post.data.category}</span>
+        </div>
+        <h2 class="text-xl mt-2 hover:text-foreground/80" transition:name={`post-title:${post.slug}`}>
+          <a href={`/posts/${post.slug}`}>
+            <span class="absolute inset-0" />
+            {post.data.title}
+          </a>
+        </h2>
+        <p class="text-foreground/80 text-sm leading-7 mt-3">
+          {post.data.summary}
+          {post.data.summary}
+        </p>
+      </div>
+    ))
+  }
+</div>
