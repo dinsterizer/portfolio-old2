@@ -1,3 +1,56 @@
-<div>
-  <!-- TODO: implement -->
+<script is:inline>
+  const rssFormHandler = () => {
+    const onSubmit = (e) => {
+      e.preventDefault()
+
+      const formData = new FormData(e.target)
+      const email = formData.get('email')
+
+      fetch('/api/rss-subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      }).then((res) => {
+        if (res.ok) {
+          e.target.reset()
+          alert('You have been subscribed to the newsletter!')
+        } else {
+          alert('Something went wrong. Please try again.')
+        }
+      })
+    }
+
+    document.getElementById('rss-form').addEventListener('submit', onSubmit)
+  }
+
+  document.addEventListener('astro:page-load', rssFormHandler)
+</script>
+
+<div class="relative isolate overflow-hidden px-6 py-16 shadow-xl rounded-xl border border-border/50">
+  <h2 class="mx-auto max-w-2xl text-center text-2xl font-bold tracking-tight text-foreground">
+    Get notified when new posts are out.
+  </h2>
+  <p class="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-muted-foreground">
+    Usually 1 post per week. No spam ever.
+  </p>
+  <form id="rss-form" class="mx-auto mt-10 flex max-w-md gap-x-4 gap-y-2 flex-wrap sm:flex-nowrap justify-end">
+    <label for="rss-email-address" class="sr-only">Email address</label>
+    <input
+      id="rss-email-address"
+      name="email"
+      type="email"
+      autocomplete="email"
+      required
+      class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+      placeholder="Enter your email"
+    />
+    <button
+      type="submit"
+      class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+    >
+      Subscribe
+    </button>
+  </form>
 </div>
