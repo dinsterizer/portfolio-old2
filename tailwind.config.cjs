@@ -72,5 +72,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography'), require('@tailwindcss/forms')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }

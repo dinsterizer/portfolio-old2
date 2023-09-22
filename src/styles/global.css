@@ -52,6 +52,7 @@
 @layer base {
   * {
     @apply border-border;
+    @apply scrollbar-thin scrollbar-thumb-border scrollbar-thumb-rounded-full;
   }
   body {
     @apply bg-background text-foreground;
